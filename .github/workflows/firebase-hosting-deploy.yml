@@ -1,0 +1,55 @@
+# ──────────────────────────────────────────────────────────────
+# Deploy to Firebase Hosting on push to main
+# ──────────────────────────────────────────────────────────────
+#
+# Required GitHub Secrets:
+#   FIREBASE_SERVICE_ACCOUNT — A Firebase service account JSON key
+#     (base64-encoded or raw JSON) with permission to deploy to Hosting.
+#
+# How to generate the service account key:
+#   1. Go to the Firebase Console → Project Settings → Service accounts
+#   2. Click "Generate new private key"
+#   3. Copy the entire JSON content
+#   4. In your GitHub repo → Settings → Secrets → Actions → New repository secret
+#      Name:  FIREBASE_SERVICE_ACCOUNT
+#      Value: <paste the full JSON key>
+#
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Build the Vite production bundle
+      - name: Build
+        run: npm run build
+
+      # 5. Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: porfolio-220bd
