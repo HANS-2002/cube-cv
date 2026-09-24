@@ -19,6 +19,11 @@ export default function App() {
           <Route path="/blogs" element={<BlogsPage />} />
         </Routes>
       </main>
+
+      {/* Footer */}
+      <footer className="py-6 text-center text-sm font-medium text-[var(--color-text-secondary)] border-t border-[var(--color-surface-600)]/30">
+        Made with ❤️ by Hans
+      </footer>
     </div>
   );
 }

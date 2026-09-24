@@ -10,10 +10,10 @@ export default function BlogsPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
       {/* Page header */}
       <div className="mb-12">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--color-text-primary)] mb-2">
           Blog
         </h1>
-        <p className="text-slate-400 text-sm">
+        <p className="text-[var(--color-text-secondary)] text-sm">
           Deep dives into the mathematics and algorithms behind puzzle solving.
         </p>
       </div>
@@ -25,24 +25,24 @@ export default function BlogsPage() {
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-gradient-to-r from-[var(--color-accent-violet)] to-[var(--color-accent-cyan)] text-white">
             Algorithm
           </span>
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 text-slate-400 border border-white/10">
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[var(--color-surface-800)] text-[var(--color-text-secondary)] border border-[var(--color-surface-600)]/30">
             Group Theory
           </span>
-          <span className="text-xs text-slate-500 ml-auto">
+          <span className="text-xs text-[var(--color-text-muted)] ml-auto">
             September 2026 · 8 min read
           </span>
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-2">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-text-primary)] leading-tight mb-2">
           Demystifying God's Number: Solving the Rubik's Cube with Graph Theory
         </h2>
-        <p className="text-slate-400 text-sm mb-8">
-          By <span className="text-cyan-400 font-medium">CubeCV Engineering</span>
+        <p className="text-[var(--color-text-secondary)] text-sm mb-8">
+          By <span className="text-cyan-600 font-medium">CubeCV Engineering</span>
         </p>
 
         {/* Article content — using Tailwind prose for typography */}
-        <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-slate-300 prose-strong:text-white prose-a:text-cyan-400">
+        <div className="prose prose-lg max-w-none prose-headings:text-[var(--color-text-primary)] prose-p:text-[var(--color-text-secondary)] prose-strong:text-[var(--color-text-primary)] prose-a:text-cyan-600">
           <p>
             The Rubik's Cube is far more than a colorful toy on a desk — it is a compact physical
             manifestation of abstract algebra. Every twist of a face is a <strong>group operation</strong>,

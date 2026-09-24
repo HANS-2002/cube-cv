@@ -29,7 +29,7 @@ function FaceMini({ faceKey, colors, isActive }) {
   return (
     <div
       className={`grid grid-cols-3 gap-[2px] p-[2px] rounded-md transition-all duration-200 ${
-        isActive ? 'ring-2 ring-cyan-400 ring-offset-1 ring-offset-[var(--color-surface-900)]' : ''
+        isActive ? 'ring-2 ring-cyan-500 ring-offset-1 ring-offset-[var(--color-surface-900)]' : ''
       }`}
     >
       {cells.map((c, i) => (
@@ -48,7 +48,7 @@ function FaceMini({ faceKey, colors, isActive }) {
 export default function CubeNet({ faces, currentFace }) {
   return (
     <div className="glass-card p-4 sm:p-6 inline-block">
-      <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
+      <h3 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3">
         Cube State
       </h3>
 

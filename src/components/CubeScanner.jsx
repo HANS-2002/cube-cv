@@ -181,13 +181,13 @@ export default function CubeScanner({
           className="w-3 h-3 rounded-full inline-block"
           style={{ backgroundColor: faceInfo.color }}
         />
-        <span className="text-slate-300">
-          Scanning: <span className="text-white font-semibold">{faceInfo.label}</span>
+        <span className="text-[var(--color-text-secondary)]">
+          Scanning: <span className="text-[var(--color-text-primary)] font-semibold">{faceInfo.label}</span>
         </span>
       </div>
 
       {/* Webcam + overlay container */}
-      <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl animate-pulse-glow">
+      <div className="relative rounded-2xl overflow-hidden border border-[var(--color-surface-600)]/30 shadow-2xl animate-pulse-glow">
         <Webcam
           ref={webcamRef}
           audio={false}

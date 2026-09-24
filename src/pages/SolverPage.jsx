@@ -110,7 +110,7 @@ export default function SolverPage() {
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[var(--color-accent-violet)] to-[var(--color-accent-cyan)] bg-clip-text text-transparent">
           Rubik's Cube Solver
         </h1>
-        <p className="text-slate-400 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+        <p className="text-[var(--color-text-secondary)] mt-2 text-sm sm:text-base max-w-xl mx-auto">
           Point your webcam at each face of the cube, capture the colors, then let the Kociemba algorithm find the optimal solution.
         </p>
       </div>
@@ -125,7 +125,7 @@ export default function SolverPage() {
           label="Solver"
           ready={solverReady}
         />
-        <span className="text-xs text-slate-500">
+        <span className="text-xs text-[var(--color-text-muted)]">
           {FACE_ORDER.filter((f) => faces[f] !== null).length}/6 faces scanned
         </span>
       </div>
@@ -158,10 +158,10 @@ export default function SolverPage() {
                   px-3 py-1.5 text-xs font-semibold rounded-lg
                   transition-all duration-200 border
                   ${currentFaceIdx === idx
-                    ? 'border-cyan-400 bg-cyan-400/10 text-cyan-300'
+                    ? 'border-cyan-600 bg-cyan-500/15 text-cyan-700'
                     : faces[f]
-                      ? 'border-green-500/30 bg-green-500/10 text-green-400'
-                      : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'
+                      ? 'border-green-600/30 bg-green-500/10 text-green-700'
+                      : 'border-[var(--color-surface-600)] bg-[var(--color-surface-800)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-700)]'
                   }
                 `}
               >
@@ -182,7 +182,7 @@ export default function SolverPage() {
             </button>
             <button
               id="reset-btn"
-              className="px-4 py-2 text-sm font-medium rounded-lg border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-surface-600)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-700)] transition-all"
               onClick={handleReset}
             >
               ↺ Reset
@@ -212,14 +212,14 @@ function StatusBadge({ label, ready }) {
       className={`
         inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full
         ${ready
-          ? 'bg-green-500/10 text-green-400 border border-green-500/20'
-          : 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20'
+          ? 'bg-green-500/10 text-green-700 border border-green-500/20'
+          : 'bg-yellow-500/10 text-yellow-700 border border-yellow-500/20'
         }
       `}
     >
       <span
         className={`w-1.5 h-1.5 rounded-full ${
-          ready ? 'bg-green-400' : 'bg-yellow-400 animate-pulse'
+          ready ? 'bg-green-500' : 'bg-yellow-500 animate-pulse'
         }`}
       />
       {label}: {ready ? 'Ready' : 'Loading…'}

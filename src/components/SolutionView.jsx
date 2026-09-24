@@ -34,7 +34,7 @@ export default function SolutionView({ solution, loading, error }) {
     return (
       <div className="glass-card p-8 text-center">
         <div className="inline-block w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mb-3" />
-        <p className="text-slate-300 text-sm">Solving… computing optimal moves</p>
+        <p className="text-[var(--color-text-secondary)] text-sm">Solving… computing optimal moves</p>
       </div>
     );
   }
@@ -58,7 +58,7 @@ export default function SolutionView({ solution, loading, error }) {
     <div className="glass-card p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-white">Solution</h3>
+        <h3 className="text-lg font-bold text-[var(--color-text-primary)]">Solution</h3>
         <span className="text-xs font-semibold px-3 py-1 rounded-full bg-gradient-to-r from-[var(--color-accent-violet)] to-[var(--color-accent-cyan)] text-white">
           {moves.length} move{moves.length !== 1 ? 's' : ''}
         </span>
@@ -92,7 +92,7 @@ export default function SolutionView({ solution, loading, error }) {
               >
                 {move}
               </div>
-              <p className="text-[10px] text-center text-slate-500 mt-1">
+              <p className="text-[10px] text-center text-[var(--color-text-muted)] mt-1">
                 {idx + 1}
               </p>
             </div>

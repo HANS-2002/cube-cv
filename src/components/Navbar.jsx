@@ -12,18 +12,20 @@ export default function Navbar() {
   const linkClass = ({ isActive }) =>
     `relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
       isActive
-        ? 'text-white bg-white/10'
-        : 'text-slate-400 hover:text-white hover:bg-white/5'
+        ? 'text-[var(--color-text-primary)] bg-[var(--color-surface-700)]'
+        : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-800)]'
     }`;
 
   return (
     <nav className="glass fixed top-0 inset-x-0 z-50 h-16 flex items-center px-6">
       {/* Logo / Brand */}
       <NavLink to="/" className="flex items-center gap-2 mr-auto">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-accent-violet)] to-[var(--color-accent-cyan)] flex items-center justify-center text-white font-bold text-sm">
-          C³
-        </div>
-        <span className="text-lg font-bold tracking-tight text-white hidden sm:inline">
+        <img
+          src="/rubiks.png"
+          alt="CubeCV Logo"
+          className="w-8 h-8 rounded-lg object-contain"
+        />
+        <span className="text-lg font-bold tracking-tight text-[var(--color-text-primary)] hidden sm:inline">
           CubeCV
         </span>
       </NavLink>
@@ -41,7 +43,7 @@ export default function Navbar() {
       {/* Mobile Hamburger */}
       <button
         id="mobile-menu-toggle"
-        className="md:hidden text-slate-300 hover:text-white p-2"
+        className="md:hidden text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] p-2"
         onClick={() => setMobileOpen(!mobileOpen)}
         aria-label="Toggle menu"
       >
