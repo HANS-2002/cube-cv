@@ -26,7 +26,18 @@ const COLOR_MAP = {
 };
 
 /**
- * Classify a single HSV pixel into one of the 6 cube colors.
+ * Classify a single HSV pixel sample into one of 6 standard Rubik's
+ * Cube face colors.
+ *
+ * HSV ranges are tuned for OpenCV's convention:
+ *   H: 0–180  (degrees/2)
+ *   S: 0–255
+ *   V: 0–255
+ *
+ * The key challenge is orange vs red — on a real cube under indoor
+ * lighting, orange stickers produce hues in the 5–25 range. Red
+ * stickers are typically < 5 or > 165, but can bleed into 5–10.
+ * We use saturation and brightness ratios to disambiguate.
  *
  * @param {number} h  Hue        (0–180 in OpenCV convention)
  * @param {number} s  Saturation (0–255)
@@ -34,30 +45,41 @@ const COLOR_MAP = {
  * @returns {string}  Color label key (e.g. 'red', 'white')
  */
 function classifyHSV(h, s, v) {
-  // White: low saturation, high brightness
+  // ── White: low saturation, high brightness ──
   if (s < 60 && v > 150) return 'white';
 
-  // Yellow: warm hue, vivid
-  if (h >= 20 && h <= 35 && s > 80 && v > 100) return 'yellow';
+  // ── Yellow: warm hue, vivid ──
+  if (h >= 22 && h <= 38 && s > 70 && v > 100) return 'yellow';
 
-  // Orange: narrow band between red and yellow
-  if (h >= 8 && h < 20 && s > 100 && v > 100) return 'orange';
+  // ── Orange: hue 5–22, but also check that it's bright and saturated.
+  //    Orange stickers are brighter (higher V) and have a warmer tone.
+  //    Under some lights, orange can show up with h as low as 3. ──
+  if (h >= 3 && h < 22 && s > 70 && v > 130) {
+    // In the overlap zone (h 3–10), use brightness to disambiguate:
+    // Orange stickers are typically brighter than red ones.
+    if (h < 8) {
+      // Ambiguous zone: orange if very bright, red otherwise
+      return v > 180 ? 'orange' : 'red';
+    }
+    return 'orange';
+  }
 
-  // Red: wraps around 0° — two ranges
-  if ((h < 8 || h > 160) && s > 80 && v > 80) return 'red';
+  // ── Red: wraps around 0° — two ranges.
+  //    Low end: h < 3 (definite red, the deep crimson zone)
+  //    High end: h > 165 (wrapping around from 180) ──
+  if ((h < 3 || h > 165) && s > 70 && v > 60) return 'red';
 
-  // Green: broad mid-hue range
+  // ── Green: broad mid-hue range ──
   if (h >= 36 && h <= 85 && s > 40 && v > 40) return 'green';
 
-  // Blue: upper mid-hue range
-  if (h >= 86 && h <= 130 && s > 50 && v > 50) return 'blue';
+  // ── Blue: upper mid-hue range ──
+  if (h >= 86 && h <= 135 && s > 50 && v > 50) return 'blue';
 
-  // Fallback — pick the closest by simple distance heuristic
-  // (shouldn't normally reach here with a real cube)
+  // ── Fallback — pick the closest by simple heuristic ──
   if (s < 40) return 'white';
-  if (h < 15) return 'red';
-  if (h < 30) return 'orange';
-  if (h < 45) return 'yellow';
+  if (h < 8) return (v > 180) ? 'orange' : 'red';
+  if (h < 25) return 'orange';
+  if (h < 40) return 'yellow';
   if (h < 85) return 'green';
   if (h < 135) return 'blue';
   return 'red';
@@ -81,8 +103,8 @@ export function detectColors(videoEl, gridRect) {
 
   const { x: gx, y: gy, size: gSize } = gridRect;
   const cellSize = gSize / 3;
-  // Sample a small square in each cell's center (20% of cell width)
-  const sampleRadius = Math.floor(cellSize * 0.10);
+  // Sample a 20% square in each cell's center (larger area = more stable reads)
+  const sampleRadius = Math.floor(cellSize * 0.20);
 
   // Draw video frame onto an offscreen canvas to get pixel data
   const canvas = document.createElement('canvas');
